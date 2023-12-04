@@ -7,5 +7,6 @@ namespace ServerReact.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
+
     }
 }
