@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ServerReact.Models;
+using ServerReact.Services.Interfaces;
 
 namespace ServerReact.Controllers
 {
@@ -7,26 +9,27 @@ namespace ServerReact.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
+        private IPostService _postService;
         [HttpPost]
-        public object Create(object model)
+        public PostModel Create(PostModel model)
         {
-            return model;
+            return _postService.Create(model);
         }
 
         [HttpPatch]
-        public object Update(object model)
-        {
-            return model;
-        }
-
-        [HttpGet]
-        public object Get(int id)
+        public PostModel Update(PostModel model)
         {
             return model;
         }
 
         [HttpGet("{id}")]
-        public object GetAll()
+        public PostModel Get(int id)
+        {
+            return model;
+        }
+
+        [HttpGet]
+        public IEnumerable<PostModel>  GetAll()
         {
             return model;
         }
