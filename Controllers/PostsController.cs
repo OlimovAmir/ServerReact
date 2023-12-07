@@ -9,6 +9,12 @@ namespace ServerReact.Controllers
     public class PostsController : ControllerBase
     {
         private IPostService _postService;
+
+        public PostsController(IPostService postService)
+        {
+            _postService = postService;
+        }
+
         [HttpPost]
         public PostModel Create(PostModel model)
         {
