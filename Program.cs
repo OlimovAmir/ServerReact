@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddTransient<IPostService, PostService>();
+builder.Services.AddSingleton<MyDataContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,8 +18,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-builder.Services.AddTransient<IPostService, PostService>();
-builder.Services.AddSingleton<MyDataContext>();
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
