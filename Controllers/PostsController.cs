@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServerReact.Models;
 using ServerReact.Services.Interfaces;
 
@@ -19,25 +18,26 @@ namespace ServerReact.Controllers
         [HttpPatch]
         public PostModel Update(PostModel model)
         {
-            return model;
+            return _postService.Update(model);
         }
 
         [HttpGet("{id}")]
         public PostModel Get(int id)
         {
-            return model;
+            return _postService.Get(id);
         }
 
         [HttpGet]
         public IEnumerable<PostModel>  GetAll()
         {
-            return model;
+            return _postService.Get();
         }
 
         [HttpDelete("{id}")]
-        public object Delete(int id)
+        public IActionResult Delete(int id)
         {
-            return model;
+            _postService.Delete(id); // можно развернуть в try catch
+            return Ok();
         }
     }
 }
