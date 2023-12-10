@@ -44,6 +44,15 @@ function Posts() {
         }
     }
 
+    const delelePost = async (id) => {
+        const options = {
+            method: 'DELETE',
+            headers: new Headers(),
+        }
+        fetch(BaseUrl + `/${id}`, options);
+        setAllPost(allPost.filter(x=> x.id !==id));
+    }
+
     useEffect(() => {
         getPost();
     }, [])
@@ -68,7 +77,7 @@ function Posts() {
                             <div key={item.id} className={styles.wrapperItem}>
                                 <h2>{item.id} {item.header}</h2>
                                 <p> {item.text}</p>
-                                <button className={styles.delete}>delete</button>
+                                <button className={styles.delete} onClick={()=> delelePost(item.id)} >delete</button>
                             </div>
                         );
                         return postView;
