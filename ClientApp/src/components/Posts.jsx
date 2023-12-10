@@ -50,7 +50,32 @@ function Posts() {
             headers: new Headers(),
         }
         fetch(BaseUrl + `/${id}`, options);
-        setAllPost(allPost.filter(x=> x.id !==id));
+        setAllPost(allPost.filter(x => x.id !== id));
+    }
+
+    const updatePost = async (oldPost) => {
+        const headersFromUser = document.querySelector('#header').value;
+        const textFromUser = document.querySelector('#text').value;
+
+        const newPost = {
+            header: headersFromUser,
+            text: textFromUser
+        }
+        const headers = new Headers();
+        headers.set('Content-Type', 'application/json');
+
+        const options = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(newPost)
+        }
+        const result = await fetch(BaseUrl, options);
+        if (result.ok) {
+            const post = await result.json();
+            const updatedPost = allPost.findIndex(x => x.id === oldPost.id);
+            //allPost(updatedPost) = post;
+            setAllPost(allPost.slice());
+        }
     }
 
     useEffect(() => {
@@ -77,7 +102,8 @@ function Posts() {
                             <div key={item.id} className={styles.wrapperItem}>
                                 <h2>{item.id} {item.header}</h2>
                                 <p> {item.text}</p>
-                                <button className={styles.delete} onClick={()=> delelePost(item.id)} >delete</button>
+                                <button className={styles.delete} onClick={() => delelePost(item.id)} >delete</button>
+                                <button className={styles.update} onClick={() => updatePost(item.id)} >updaate</button>
                             </div>
                         );
                         return postView;
