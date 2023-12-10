@@ -68,6 +68,7 @@ function Posts() {
                             <div key={item.id} className={styles.wrapperItem}>
                                 <h2>{item.id} {item.header}</h2>
                                 <p> {item.text}</p>
+                                <button className={styles.delete}>delete</button>
                             </div>
                         );
                         return postView;
