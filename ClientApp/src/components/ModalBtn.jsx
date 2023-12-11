@@ -14,14 +14,15 @@ function ModalBtn({ modalConteent, title, btnName }) {
 
     return (
         <div>
-            <Button variant='primary' onClick={handleOpenModal} ></Button>
+            <Button variant='primary' onClick={handleOpenModal} className='m-2' > {btnName} </Button>
+            
             <Modal show={showModal} >
                 <ModalHeader >
                     <ModalTitle>{title}</ModalTitle>
                 </ModalHeader>
                 <ModalBody>{modalConteent}</ModalBody>
                 <ModalFooter>
-                    <Button variant='secondary' onClick={handleCloseModal} ></Button>
+                    <Button variant='secondary' onClick={handleCloseModal} >Close</Button>
                 </ModalFooter>
             </Modal>
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Posts.module.css';
+import ModalBtn from './ModalBtn';
 
 const BaseUrl = `/api/posts`;
 
@@ -54,26 +55,20 @@ function Posts() {
     }
 
     const updatePost = async (oldPost) => {
-        const headersFromUser = document.querySelector('#header').value;
-        const textFromUser = document.querySelector('#text').value;
 
-        const newPost = {
-            header: headersFromUser,
-            text: textFromUser
-        }
         const headers = new Headers();
         headers.set('Content-Type', 'application/json');
 
         const options = {
             method: 'PATCH',
             headers: headers,
-            body: JSON.stringify(newPost)
+            body: JSON.stringify(oldPost)
         }
         const result = await fetch(BaseUrl, options);
         if (result.ok) {
             const post = await result.json();
-            const updatedPost = allPost.findIndex(x => x.id === oldPost.id);
-            //allPost(updatedPost) = post;
+            //const updatedPost = allPost.findIndex(x => x.id === oldPost.id);
+            allPost.push(post);
             setAllPost(allPost.slice());
         }
     }
@@ -103,7 +98,31 @@ function Posts() {
                                 <h2>{item.id} {item.header}</h2>
                                 <p> {item.text}</p>
                                 <button className={styles.delete} onClick={() => delelePost(item.id)} >delete</button>
-                                <button className={styles.update} onClick={() => updatePost(item.id)} >updaate</button>
+                                <ModalBtn
+                                    btnName={'Update'}
+                                    title={'Update post'}
+                                    modalConteent={
+                                        <div>
+                                            <div style={{ margin: "10px" }}>
+                                                <input
+                                                    id='header'
+                                                    type="text"
+                                                    placeholder='Зоголовок поста'
+                                                    defaultValue={item.header}
+                                                    onChange={e => item.header = e.target.value}
+                                                />
+                                            </div>
+                                            <div style={{ margin: "10px" }}>
+                                                <textarea
+                                                    id='text'
+                                                    defaultValue={item.text}
+                                                    onChange={e => item.text = e.target.value}
+                                                />
+                                            </div>
+                                            <button onClick={() => updatePost(item)} type='button' style={{ color: "green", borderRadius: "10px" }}>Add Post</button>
+                                        </div>
+                                    }
+                                />
                             </div>
                         );
                         return postView;
