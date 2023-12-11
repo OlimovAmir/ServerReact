@@ -67,8 +67,8 @@ function Posts() {
         const result = await fetch(BaseUrl, options);
         if (result.ok) {
             const post = await result.json();
-            //const updatedPost = allPost.findIndex(x => x.id === oldPost.id);
-            allPost.push(post);
+            const updatedPost = allPost.findIndex(x => x.id === oldPost.id);
+            allPost[updatedPost] = post;
             setAllPost(allPost.slice());
         }
     }
